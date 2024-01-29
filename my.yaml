@@ -1,0 +1,60 @@
+processors:
+  batch:
+
+exporters:
+  logging:
+    loglevel: "debug"
+
+  otlp/jaeger:
+    endpoint: ${JAEGER_EXPORTER_OTLP_ENDPOINT}
+    tls:
+      insecure: true
+
+  otlphttp/newrelic:
+    endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}
+    tls:
+      insecure: false
+    headers:
+      api-key: ${NEW_RELIC_LICENSE_KEY}
+      
+  otlphttp/dynatrace:
+    endpoint: ${DYNATRACE_EXPORTER_OTLP_ENDPOINT}
+    headers:
+      Authorization: "Api-Token ${DYNATRACE_API_TOKEN}"
+      
+receivers:
+  otlp:
+    protocols:
+      grpc:  # Default port 4317, changed because running Jaeger on localhost too
+        endpoint: 0.0.0.0:4319
+      http:  # Default port 4318, changed because running Jaeger on localhost too
+        endpoint: 0.0.0.0:4320
+        include_metadata: true
+        cors:
+          allowed_origins:
+            - http://*
+            - https://*
+          allowed_headers:
+            - "*"
+
+  solace/broker1:
+    broker : ${SOLACE_BROKER}
+    max_unacknowledged: 500
+    auth:
+      sasl_plain:
+        username: ${SOLACE_USER}
+        password: ${SOLACE_PASS}
+    queue: queue://#telemetry-tp1
+    tls:
+      insecure: false
+      insecure_skip_verify: true
+
+service:
+  telemetry:
+    logs:
+      level: "debug"
+  pipelines:
+    traces:
+      receivers: [solace/broker1, otlp]
+      processors: [batch]
+      exporters: [logging, otlp/jaeger, otlphttp/newrelic, otlphttp/dynatrace]
