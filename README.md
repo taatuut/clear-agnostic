@@ -8,6 +8,11 @@ This Solace PubSub+ Distributed Tracing demo is based on work from Daniel Brunol
 
 The name of this repo is an anagram for Solace Tracing and this time the anagram actually makes sense.
 
+Background
+---
+
+In folder `docs` you find file `SolacePubSub+DistributedTracingDemo.pdf` describing the setup, and file `SolacePubSub+DistributedTracingDemo.pdf` with an introduction on Solace PubSub+ Distributec Tracing.
+
 Setup
 ---
 
