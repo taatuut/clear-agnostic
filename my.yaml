@@ -2,25 +2,39 @@ processors:
   batch:
 
 exporters:
+  file:
+    path: "./otel.json"
+
   logging:
     loglevel: "debug"
+    # encoding: "json"
+    # output_paths: ["./otel.log"]
+
+  otlphttp/jsontest:
+    endpoint: "http://localhost:3317/"
+    compression: "none"
+    encoding: "json"
+    tls:
+      insecure: true
+    headers:
+      Content-Type: "application/json" 
 
   otlp/jaeger:
     endpoint: ${JAEGER_EXPORTER_OTLP_ENDPOINT}
     tls:
       insecure: true
 
-  otlphttp/newrelic:
-    endpoint: ${OTEL_EXPORTER_OTLP_ENDPOINT}
-    tls:
-      insecure: false
-    headers:
-      api-key: ${NEW_RELIC_LICENSE_KEY}
+  # otlphttp/newrelic:
+  #   endpoint: ${NEW_RELIC_EXPORTER_OTLP_ENDPOINT}
+  #   tls:
+  #     insecure: false
+  #   headers:
+  #     api-key: ${NEW_RELIC_LICENSE_KEY}
       
-  otlphttp/dynatrace:
-    endpoint: ${DYNATRACE_EXPORTER_OTLP_ENDPOINT}
-    headers:
-      Authorization: "Api-Token ${DYNATRACE_API_TOKEN}"
+  # otlphttp/dynatrace:
+  #   endpoint: ${DYNATRACE_EXPORTER_OTLP_ENDPOINT}
+  #   headers:
+  #     Authorization: "Api-Token ${DYNATRACE_API_TOKEN}"
       
 receivers:
   otlp:
@@ -57,4 +71,5 @@ service:
     traces:
       receivers: [solace/broker1, otlp]
       processors: [batch]
-      exporters: [logging, otlp/jaeger, otlphttp/newrelic, otlphttp/dynatrace]
+      # exporters: [logging, otlp/jaeger, otlphttp/newrelic, otlphttp/dynatrace, otlphttp/jsontest]
+      exporters: [logging, otlp/jaeger, otlphttp/jsontest]
