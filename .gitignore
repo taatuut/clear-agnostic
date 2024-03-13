@@ -163,6 +163,7 @@ cython_debug/
 /docs/*.docx
 /docs/*.pptx
 /docs/notes.txt
+/docs/*.mp4
 # MacOS
 # Alreeady included in section # Environments
 # .env

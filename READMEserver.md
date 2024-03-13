@@ -28,8 +28,22 @@ POST
 curl -X POST -d "this works too" http://localhost:3317/
 ```
 
+Tried with opentelemetry-proto but json is easier :-)
+
+```
+python3 -m pip install opentelemetry-proto
+python3 -m pip install --upgrade pip
+```
+
 Links
 ---
 
 https://github.com/open-telemetry/opentelemetry-collector/commit/e8748663d34dd0c2af1878eee45395c35c9b58c5
 https://piehost.com/blog/python-websocket
+
+https://github.com/open-telemetry/opentelemetry-collector/issues/6945
+https://github.com/open-telemetry/opentelemetry-collector/pull/9276
+
+https://github.com/open-telemetry/opentelemetry-python/issues/1003
+
+https://opentelemetry.io/docs/specs/otel/protocol/file-exporter/
