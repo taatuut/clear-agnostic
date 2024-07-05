@@ -35,6 +35,15 @@ exporters:
   #   endpoint: ${DYNATRACE_EXPORTER_OTLP_ENDPOINT}
   #   headers:
   #     Authorization: "Api-Token ${DYNATRACE_API_TOKEN}"
+
+  # datadog:
+  #   api:
+  #     site: datadoghq.com
+  #     key: <Key>
+
+  # splunk:
+  #   access_token: "${SPLUNK_ACCESS_TOKEN}"
+  #   endpoint: "${SPLUNK_TRACE_URL}"
       
 receivers:
   otlp:

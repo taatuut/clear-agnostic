@@ -78,8 +78,8 @@ SDKPerf acts as both publisher and consumer in this sertup. Topics and queues mu
 Run repeatedly every 10 seconds.
 
 ```
-cd ~/sdkperf/sdkperf-jcsmp-8.4.14.10
-while true; do ./sdkperf_java.sh -cip=tcps://mr-connection-5uta8l8extu.messaging.solace.cloud:55443 -cu=solace-cloud-client@ez-aws-fra -cp=deun1l905ashrflooldf1qhrfg -ptl='demo/trace' -sql='queue-trace1,queue-trace2' -mt=persistent -mn=1 -mr=1 -msa=32768 -q -tcc -tcrc -tecip="http://localhost:4317"; sleep 10; done
+cd ~/sdkperf/sdkperf-jcsmp-8.4.17.5
+while true; do ./sdkperf_java.sh -cip=tcps://mr-connection-5uta8l8extu.messaging.solace.cloud:55443 -cu=solace-cloud-client@ez-aws-fra -cp=deun1l905ashrflooldf1qhrfg -ptl='demo/trace' -sql='queue-trace1,queue-trace2' -mt=persistent -mn=1 -mr=1 -msa=32768 -q -tsn="myTravel" -bag="destination=nice,country=france,datefrom=20240719,dateto-20240802,customerid=emilzegers@solace.com" -tcc -tcrc -tecip="http://localhost:4317"; sleep 10; done
 ```
 
 To stop kill the process with `Control-C`.
@@ -88,7 +88,7 @@ _Start PMOTEL_
 
 Poor Man’s OTEL endpoint, a Python script that processes POST requests from otel collector exporter with metrics in protobuf, (gzipped) JSON or something else and just displays the data received.
 
-`python3 myhttpserver.py`
+`python3 ~/GitHub/taatuut/clear-agnostic/myhttpserver.py`
 
 To stop kill the process with `Control-C`.
 
