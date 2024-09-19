@@ -24,12 +24,12 @@ exporters:
     tls:
       insecure: true
 
-  # otlphttp/newrelic:
-  #   endpoint: ${NEW_RELIC_EXPORTER_OTLP_ENDPOINT}
-  #   tls:
-  #     insecure: false
-  #   headers:
-  #     api-key: ${NEW_RELIC_LICENSE_KEY}
+  otlphttp/newrelic:
+    endpoint: ${NEW_RELIC_EXPORTER_OTLP_ENDPOINT}
+    tls:
+      insecure: false
+    headers:
+      api-key: ${NEW_RELIC_LICENSE_KEY}
       
   # otlphttp/dynatrace:
   #   endpoint: ${DYNATRACE_EXPORTER_OTLP_ENDPOINT}
@@ -72,13 +72,22 @@ receivers:
       insecure: false
       insecure_skip_verify: true
 
+  syslog:
+    udp:
+      listen_address: "0.0.0.0:54526"
+    protocol: rfc3164
+    location: UTC
+
 service:
   telemetry:
     logs:
       level: "debug"
   pipelines:
+    logs:
+      receivers: [syslog]
+      exporters: [logging, otlphttp/newrelic, otlphttp/jsontest]
     traces:
       receivers: [solace/broker1, otlp]
       processors: [batch]
-      # exporters: [logging, otlp/jaeger, otlphttp/newrelic, otlphttp/dynatrace, otlphttp/jsontest]
-      exporters: [logging, otlp/jaeger, otlphttp/jsontest]
+#      exporters: [logging, otlp/jaeger, otlphttp/newrelic, otlphttp/dynatrace, otlphttp/jsontest]
+      exporters: [logging, otlp/jaeger, otlphttp/newrelic, otlphttp/jsontest]
