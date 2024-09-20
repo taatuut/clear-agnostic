@@ -99,3 +99,19 @@ Links
 
 https://opentelemetry.io/docs/collector/configuration/
 
+Other
+---
+
+Issue with `git push`, also seen in other repos:
+
+```
+git push
+...
+error: RPC failed; HTTP 400 curl 22 The requested URL returned error: 400
+send-pack: unexpected disconnect while reading sideband packet
+...
+fatal: the remote end hung up unexpectedly
+Everything up-to-date
+```
+
+Solved by running `git config --global http.postBuffer 524288000`
