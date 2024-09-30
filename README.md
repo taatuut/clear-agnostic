@@ -60,7 +60,7 @@ Navigate to http://localhost:16686 to access the Jaeger UI.
 
 _Start OTEL collector_
 
-Create required environment variables for yaml file, if any
+Create required environment variables for yaml file and SDKPerf, see sample.env
 
 `source /path/to/.env`
 
@@ -79,7 +79,7 @@ Run repeatedly every 10 seconds.
 
 ```
 cd ~/sdkperf/sdkperf-jcsmp-8.4.17.5
-while true; do ./sdkperf_java.sh -cip=tcps://mr-connection-5uta8l8extu.messaging.solace.cloud:55443 -cu=solace-cloud-client@ez-aws-fra -cp=deun1l905ashrflooldf1qhrfg -ptl='demo/trace' -sql='queue-trace1,queue-trace2' -mt=persistent -mn=1 -mr=1 -msa=32768 -q -tsn="myTravel" -bag="destination=nice,country=france,datefrom=20240719,dateto-20240802,customerid=emilzegers@solace.com" -tcc -tcrc -tecip="http://localhost:4317"; sleep 10; done
+while true; do ./sdkperf_java.sh -cip=$SDKPERF-cip -cu=$SDKPERF-cu -cp=$SDKPERF-cp -ptl='demo/trace' -sql='queue-trace1,queue-trace2' -mt=persistent -mn=1 -mr=1 -msa=32768 -q -tsn="myTravel" -bag="destination=nice,country=france,datefrom=20240719,dateto-20240802,customerid=emilzegers@solace.com" -tcc -tcrc -tecip="http://localhost:4317"; sleep 10; done
 ```
 
 To stop kill the process with `Control-C`.
