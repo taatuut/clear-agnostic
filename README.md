@@ -1,4 +1,8 @@
-# clear-agnostic
+# Repository Moved
+This repository has moved to [new location]https://github.com/SolaceLabs/solace-demo-observability). Please update your bookmarks.
+
+clear-agnostic
+---
 Solace PubSub+ Distributed Tracing
 
 Introduction
